@@ -122,7 +122,8 @@ class Distribution(_Distribution):
         return False
 
     def ext_status(self, ext):
-        if 'Java' in sys.version or 'IronPython' in sys.version or 'PyPy' in sys.version:
+        version_lower = sys.version.lower()
+        if any(platform in version_lower for platform in ("java", "ironpython", "pypy", "jdk")):
             return False
         if isinstance(ext, Extension):
             with_ext = getattr(self, ext.attr_name)
